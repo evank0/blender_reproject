@@ -71,6 +71,7 @@ If that works, the add-on can use `pyproj` successfully.
 5. Click `Reproject Selected Mesh`.
 
 The add-on will create a new mesh object with the reprojected vertices. The original mesh can be kept or removed.
+When the target CRS has an EPSG code, that code is appended to the new object's name (for example, `terrain_reprojected_EPSG_3857`).
 Only the horizontal X/Y coordinates are reprojected; each vertex's Z coordinate is preserved unchanged.
 
 ## Common CRS examples

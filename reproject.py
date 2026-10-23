@@ -121,7 +121,9 @@ class REPROJECT_OT_mesh(bpy.types.Operator):
 
             projected = _reproject_coords(coords, self.source_crs, self.target_crs)
 
-            new_name = f"{obj.name}_reprojected"
+            target_epsg = CRS.from_user_input(self.target_crs).to_epsg()
+            epsg_suffix = f"_EPSG_{target_epsg}" if target_epsg is not None else ""
+            new_name = f"{obj.name}_reprojected{epsg_suffix}"
             new_obj = _create_mesh_object(new_name, obj, projected, self.include_world_transform)
 
             context.collection.objects.link(new_obj)
