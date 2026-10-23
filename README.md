@@ -71,6 +71,7 @@ If that works, the add-on can use `pyproj` successfully.
 5. Click `Reproject Selected Mesh`.
 
 The add-on will create a new mesh object with the reprojected vertices. The original mesh can be kept or removed.
+Only the horizontal X/Y coordinates are reprojected; each vertex's Z coordinate is preserved unchanged.
 
 ## Common CRS examples
 
@@ -94,4 +95,4 @@ If the reprojected mesh appears offset:
 
 ## Notes
 
-This add-on reprojects Cartesian XY coordinates using the selected CRS definitions. For geospatial data, the most common workflow is to transform the mesh vertices only and keep the object scale/rotation separate from the coordinate transformation.
+This add-on reprojects Cartesian XY coordinates using the selected CRS definitions and preserves Z values unchanged. It does not perform a vertical CRS or elevation-unit conversion. For geospatial data, the most common workflow is to transform the mesh vertices only and keep the object scale/rotation separate from the coordinate transformation.

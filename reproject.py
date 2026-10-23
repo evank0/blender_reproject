@@ -1,9 +1,8 @@
 """Mesh re-projection tools for Blender.
 
 This add-on reprojects selected mesh vertices from one CRS to another,
-using pyproj for the horizontal transform. The Z coordinates are preserved
-unless the source/target CRS conversion alters them, in which case pyproj
-returns the transformed elevation if the CRS defines one.
+using pyproj for the horizontal transform. Z coordinates are preserved
+unchanged.
 """
 
 import numpy as np
@@ -57,13 +56,11 @@ def _reproject_coords(coords, source_crs, target_crs):
     x = coords[:, 0]
     y = coords[:, 1]
 
+    new_x, new_y = transformer.transform(x, y)
     if coords.shape[1] == 2:
-        new_x, new_y = transformer.transform(x, y)
         return np.column_stack((new_x, new_y))
 
-    z = coords[:, 2]
-    new_x, new_y, new_z = transformer.transform(x, y, z)
-    return np.column_stack((new_x, new_y, new_z))
+    return np.column_stack((new_x, new_y, coords[:, 2]))
 
 
 def _create_mesh_object(name, source_obj, coords, include_world_transform):
